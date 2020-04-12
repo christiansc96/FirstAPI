@@ -1,0 +1,12 @@
+C:\Users\D_Sanchez\source\repos\DominiCodeAPI\Data.DominiCode\bin\Debug\netcoreapp3.1\Data.DominiCode.deps.json
+C:\Users\D_Sanchez\source\repos\DominiCodeAPI\Data.DominiCode\bin\Debug\netcoreapp3.1\Data.DominiCode.dll
+C:\Users\D_Sanchez\source\repos\DominiCodeAPI\Data.DominiCode\obj\Debug\netcoreapp3.1\Data.DominiCode.csprojAssemblyReference.cache
+C:\Users\D_Sanchez\source\repos\DominiCodeAPI\Data.DominiCode\obj\Debug\netcoreapp3.1\Data.DominiCode.AssemblyInfoInputs.cache
+C:\Users\D_Sanchez\source\repos\DominiCodeAPI\Data.DominiCode\obj\Debug\netcoreapp3.1\Data.DominiCode.AssemblyInfo.cs
+C:\Users\D_Sanchez\source\repos\DominiCodeAPI\Data.DominiCode\bin\Debug\netcoreapp3.1\Data.DominiCode.runtimeconfig.json
+C:\Users\D_Sanchez\source\repos\DominiCodeAPI\Data.DominiCode\bin\Debug\netcoreapp3.1\Data.DominiCode.runtimeconfig.dev.json
+C:\Users\D_Sanchez\source\repos\DominiCodeAPI\Data.DominiCode\bin\Debug\netcoreapp3.1\Data.DominiCode.pdb
+C:\Users\D_Sanchez\source\repos\DominiCodeAPI\Data.DominiCode\obj\Debug\netcoreapp3.1\Data.DominiCode.csproj.CoreCompileInputs.cache
+C:\Users\D_Sanchez\source\repos\DominiCodeAPI\Data.DominiCode\obj\Debug\netcoreapp3.1\Data.DominiCode.dll
+C:\Users\D_Sanchez\source\repos\DominiCodeAPI\Data.DominiCode\obj\Debug\netcoreapp3.1\Data.DominiCode.pdb
+C:\Users\D_Sanchez\source\repos\DominiCodeAPI\Data.DominiCode\obj\Debug\netcoreapp3.1\Data.DominiCode.genruntimeconfig.cache
