@@ -1,31 +1,29 @@
 ﻿using Data.DominiCode.DBContext;
 using Data.DominiCode.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Repository.Domini.Repository
 {
     public class DominiRepository : IDominiRepository
     {
-        private DominiContext _context;
+        private readonly DominiContext _context;
+
         public DominiRepository(DominiContext context)
         {
-            _context = context;
+            this._context = context;
         }
 
         public async Task<List<ClientCategory>> GetClientCategories()
         {
-            var categories = await _context.ClientCategories.ToListAsync();
+            List<ClientCategory> categories = await _context.ClientCategories.ToListAsync();
             return categories;
         }
 
         public async Task<ClientCategory> GetClientCategory(int id)
         {
-            var category = await _context.ClientCategories.FindAsync(id);
+            ClientCategory category = await _context.ClientCategories.FindAsync(id);
             return category;
         }
 
@@ -59,7 +57,7 @@ namespace Repository.Domini.Repository
 
         public async Task<bool> UpdateClientCategory(ClientCategory category)
         {
-            _context.Entry(category).State = EntityState.Modified;
+            _context.ClientCategories.Update(category);
             try
             {
                 await _context.SaveChangesAsync();

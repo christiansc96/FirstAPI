@@ -1,3 +1,7 @@
 ﻿Data.DominiCode/obj
 DominiCodeAPI/obj
 Repository.Domini/obj
+Data.DominiCode/bin
+.vs
+DominiCodeAPI/bin
+Repository.Domini/bin

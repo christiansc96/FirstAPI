@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Data.DominiCode.Models;
 using DominiCodeAPI.DTOs;
 using DominiCodeAPI.Utils;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Domini.Repository;
 
@@ -15,80 +12,78 @@ namespace DominiCodeAPI.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private IDominiRepository _DominiRepository;
-        public CategoriesController(IDominiRepository dominiRepository)
+        private readonly IDominiRepository _bdRepository;
+        private readonly LogicValidations logicValidations = new LogicValidations();
+
+        public CategoriesController(IDominiRepository bdRepository)
         {
-            _DominiRepository = dominiRepository;
+            _bdRepository = bdRepository;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetCategories()
         {
-            var logicValidation = new LogicValidations();
-            var categorisListDTO = new List<CategoriesDTO>();
+            List<CategoriesDTO> categoriesDTO = new List<CategoriesDTO>();
 
-            var categoriesFromDatabase = await _DominiRepository.GetClientCategories();
-            if (logicValidation.ValidateDataCount(categoriesFromDatabase.Count))
+            List<ClientCategory> categoriesFromDatabase = await _bdRepository.GetClientCategories();
+            foreach (var category in categoriesFromDatabase)
             {
-                foreach (var category in categoriesFromDatabase)
+                CategoriesDTO categoryDTO = new CategoriesDTO() 
                 {
-                    var categoryDTO = new CategoriesDTO(category);
-                    categorisListDTO.Add(categoryDTO);
-                }
-                return Ok(categorisListDTO);
+                    CategoryId = category.CategoryId,
+                    CategoryName = category.CategoryName,
+                    Active = category.Active
+                };
+                categoriesDTO.Add(categoryDTO);
             }
-            else
-            {
-                return Ok(categorisListDTO);
-            }
+            return Ok(categoriesDTO);
         }
        
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCategory(int id)
         {
-            var logicValidation = new LogicValidations();
-
-            var categoryFromDatabase = await _DominiRepository.GetClientCategory(id);
-            if (logicValidation.IsNotNull(categoryFromDatabase))
+            ClientCategory categoryFromDatabase = await _bdRepository.GetClientCategory(id);
+            if (logicValidations.ValidateIfDataIsNotNull(categoryFromDatabase))
             {
-                var categoryDTO = new CategoriesDTO(categoryFromDatabase);
+                CategoriesDTO categoryDTO = new CategoriesDTO() 
+                {
+                    CategoryId = categoryFromDatabase.CategoryId,
+                    CategoryName = categoryFromDatabase.CategoryName,
+                    Active = categoryFromDatabase.Active
+                };
                 return Ok(categoryDTO);
             }
-            else
-            {
-                return NotFound();
-            }
+            return NotFound();
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostCategory(ClientCategory category)
+        public async Task<IActionResult> PostCategory(CategoriesDTO model)
         {
-            var logicValidation = new LogicValidations();
+            ClientCategory newClientCategory = new ClientCategory()
+            {
+                CategoryName = model.CategoryName,
+                Active = model.Active
+            };
 
-            var categoryFromDatabase = await _DominiRepository.PostClientCategory(category);
-            if (logicValidation.IsNotNull(categoryFromDatabase))
+            ClientCategory categoryFromDatabase = await _bdRepository.PostClientCategory(newClientCategory);
+            if (logicValidations.ValidateIfDataIsNotNull(categoryFromDatabase))
             {
-                var categoryDTO = new CategoriesDTO(categoryFromDatabase);
-                return Ok(categoryDTO);
+                model.CategoryId = categoryFromDatabase.CategoryId;
+                return Ok(model);
             }
-            else
-            {
-                return BadRequest();
-            }
+            return BadRequest();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
-            var logicValidation = new LogicValidations();
-
-            var categoryFromDatabase = await _DominiRepository.GetClientCategory(id);
-            if (!logicValidation.IsNotNull(categoryFromDatabase))
+            ClientCategory categoryFromDatabase = await _bdRepository.GetClientCategory(id);
+            if (!logicValidations.ValidateIfDataIsNotNull(categoryFromDatabase))
             {
                 return NotFound();
             }
 
-            var resulFromDatabase = await _DominiRepository.DeleteClientCategory(categoryFromDatabase);
+            bool resulFromDatabase = await _bdRepository.DeleteClientCategory(categoryFromDatabase);
             if (!resulFromDatabase)
             {
                 return BadRequest();

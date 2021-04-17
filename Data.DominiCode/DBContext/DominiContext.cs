@@ -1,8 +1,5 @@
 ﻿using Data.DominiCode.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Data.DominiCode.DBContext
 {
@@ -13,7 +10,7 @@ namespace Data.DominiCode.DBContext
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLOCALDB;Database=DominiBD;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=DESKTOP-O2HPDF9;Database=DominiBD;Trusted_Connection=True;");
         }
     }
 }
